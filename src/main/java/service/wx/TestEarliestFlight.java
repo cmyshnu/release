@@ -1,6 +1,7 @@
 package service.wx;
 
 import common.AnalyzeResponse;
+import common.CompareTime;
 import common.NowTime;
 import common.flightinfo.cabinsInfoVO;
 import common.flightinfo.flightInfoVO;
@@ -18,25 +19,31 @@ public class TestEarliestFlight {
 
     @Test
     public void testWxFlightOffTime() throws ParseException {
+
+
+        //获取当前时间
         NowTime nowTime = new NowTime();
         String time1 = nowTime.nowTime();
-        System.out.println(time1);
+
+
+
+        //调用JSON解析接口获取时间List
         AnalyzeResponse analyzeResponse = new AnalyzeResponse();
         List<String> list = new ArrayList<String>();
         Map<flightInfoVO, cabinsInfoVO> map = analyzeResponse.analyzeResponse();
         for(Map.Entry<flightInfoVO,cabinsInfoVO> entry : map.entrySet()){
             list.add(entry.getKey().getFlightOffTime());
         }
+
+
+        //对时间List排序
         Collections.sort(list);
 
-
         String time = list.get(0).toString();
-        System.out.println(time);
-        DateFormat df = new SimpleDateFormat("HH:mm");
-        Date dt1 = df.parse(time);
-        Date dt2 = df.parse(time1);
+        CompareTime compareTime = new CompareTime();
 
-        assert dt1.getTime()<dt2.getTime();
+        //断言，判断目前最早的航班起飞时间是否大于当前时间
+        assert compareTime.compareTime(time,time1);
 
     }
 }
