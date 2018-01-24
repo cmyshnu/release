@@ -2,7 +2,7 @@ package service.wx;
 
 import common.flightinfo.cityVO;
 import exceldata.AirlineExcelData;
-import common.DepDate;
+import common.FlightOffTime;
 import common.HttpRequests;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class GetWxResponse {
         List<Object> list1 = new ArrayList<Object>();
         HttpRequests http = new HttpRequests();
         AirlineExcelData airlineExcelData = new AirlineExcelData();
-        DepDate depDate = new DepDate();
+        FlightOffTime flightOffTime = new FlightOffTime();
         GetParam getParam = new GetParam();
         //从配置里获取接口地址
         GetUrl getUrl = new GetUrl();
@@ -31,7 +31,7 @@ public class GetWxResponse {
         for (int i =0; i<list.size();i++){
             String arr = list.get(i).getArrCode();
             String dep = list.get(i).getDepCode();
-            String param = getParam.getParam(arr,dep,depDate.getDate());
+            String param = getParam.getParam(arr,dep, flightOffTime.getDate());
             list1.add(http.getRequests(url,param).toString());
         }
 

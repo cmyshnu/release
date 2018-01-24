@@ -11,7 +11,7 @@ import java.util.Date;
  * @author bejson.com (i@bejson.com)
  * @website http://www.bejson.com/java2pojo/
  */
-public class JsonRootBean {
+public class WxSreachBean {
 
     private HourLowestPrice HourLowestPrice;
     private TrainRecommand TrainRecommand;
